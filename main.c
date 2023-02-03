@@ -6,16 +6,21 @@
 /*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:50:13 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/02 16:01:14 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:57:08 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	initiate()
+static void	initiate_variables(void)
 {
-	pthread_mutex_init(&data()->mutex_death, NULL);
-	
+	data()->philo = malloc(sizeof(t_philo) * data()->num_philos);
+	if (!data()->philo)
+		return (0);
+	data()->fork = malloc(sizeof(t_fork) * data()->num_philos);
+	if (!data()->philo)
+		return (0);
+	pthread_mutex_init(&data()->mutex)
 }
 
 static int	parse_args(int ac, char **av)
@@ -51,7 +56,7 @@ int	main(int ac, char **av)
 	{
 		if (!parse_args(ac, av))
 			return (0);
-		initiate();
+		initiate_variables();
 	}
 	else
 		printf("arguments must be 4 or 5");
