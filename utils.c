@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:29 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/03 18:26:54 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:41:34 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 t_data	*data(void)
 {
 	static t_data	data;
+
+	return (&data);
+}
+
+t_death	*data_death(void)
+{
+	static t_death	data;
 
 	return (&data);
 }

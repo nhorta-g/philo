@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:50:13 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/03 18:57:08 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:27:50 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,28 @@
 
 static void	initiate_variables(void)
 {
+	int	i;
+
+	i = -1;
+	data()->start_time = get_time();
+	pthread_mutex_init(&data_death()->mutex_death, NULL);
 	data()->philo = malloc(sizeof(t_philo) * data()->num_philos);
 	if (!data()->philo)
-		return (0);
+		return ;
 	data()->fork = malloc(sizeof(t_fork) * data()->num_philos);
 	if (!data()->philo)
-		return (0);
-	pthread_mutex_init(&data()->mutex)
+		return ;
+	while (++i < data()->num_philos)
+	{
+		pthread_mutex_init(&data()->fork[i].mutex_fork, NULL);
+		data()->fork[i].exist_fork = 1;
+		data()->philo[i].philo_id = i + 1;
+		data()->philo[i].num_eaten = 0;
+		data()->philo[i].total_forks = 0;
+		data()->philo[i].has_eaten = 0;
+		data()->philo[i].last_meal = 0;
+		data()->philo[i].sleeping = 0;
+	}
 }
 
 static int	parse_args(int ac, char **av)

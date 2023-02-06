@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:24:01 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/03 18:59:04 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:26:56 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ typedef struct s_philo
 {
 	int				philo_id;
 	int				num_eaten;
-	int				death;
-	pthread_t		philo;
+	int				total_forks;
+	int				has_eaten;
+	int				left_fork;
+	int				right_fork;
+	long int		last_meal;
+	long int		sleeping;
+	pthread_t		philo_thread;
 }					t_philo;
 
 typedef struct s_data
@@ -55,6 +60,7 @@ typedef struct s_data
 /*utils*/
 long int	get_time(void);
 t_data		*data(void);
+t_death		*data_death(void);
 int			ft_atoi(const char *str);
 int			end_and_error_message(char *msg);
 
