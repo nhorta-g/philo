@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:50:13 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/06 23:27:50 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/07 16:32:55 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	initiate_variables(void)
+static void	initiate_variables_second(void)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data()->num_philos)
+		pthread_join(data()->philo[i].philo_thread, NULL);
+	while (--i > -1)
+		pthread_mutex_destroy(&data()->fork[i].mutex_fork);
+	return ;
+}
+
+static void	initiate_variables_first(void)
 {
 	int	i;
 
@@ -28,14 +40,17 @@ static void	initiate_variables(void)
 	while (++i < data()->num_philos)
 	{
 		pthread_mutex_init(&data()->fork[i].mutex_fork, NULL);
-		data()->fork[i].exist_fork = 1;
+		data()->fork[i].exist_fork = 0;
 		data()->philo[i].philo_id = i + 1;
 		data()->philo[i].num_eaten = 0;
 		data()->philo[i].total_forks = 0;
 		data()->philo[i].has_eaten = 0;
 		data()->philo[i].last_meal = 0;
 		data()->philo[i].sleeping = 0;
+		pthread_create(&data()->philo[i].philo_thread, NULL, \
+		&routine, &data()->philo[i]);
 	}
+	initiate_variables_second();
 }
 
 static int	parse_args(int ac, char **av)
@@ -72,6 +87,7 @@ int	main(int ac, char **av)
 		if (!parse_args(ac, av))
 			return (0);
 		initiate_variables();
+		//test();
 	}
 	else
 		printf("arguments must be 4 or 5");

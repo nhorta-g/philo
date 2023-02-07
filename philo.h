@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:24:01 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/06 23:26:56 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/07 18:48:33 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 	t_philo			*philo;
 	t_death			*death;
 	t_fork			*fork;
+	pthread_mutex_t	mutex_print;
 }					t_data;
 
 /*utils*/
@@ -63,5 +64,15 @@ t_data		*data(void);
 t_death		*data_death(void);
 int			ft_atoi(const char *str);
 int			end_and_error_message(char *msg);
+
+/*routine*/
+void		*routine(void *t);
+
+/*death*/
+int			check_dead(void);
+int			philo_alive(t_philo *philos);
+
+/*test*/
+void		test(void);
 
 #endif

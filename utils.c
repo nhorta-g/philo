@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:29 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/06 22:41:34 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/07 17:36:32 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ long int	get_time(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	print_message(t_philo *philo, char *str)
+{
+	printf("%ld ms %i %s\n", get_time() - \
+		data()->start_time, philo->philo_id, str);
+	return ;
 }
 
 int	ft_atoi(const char *str)
