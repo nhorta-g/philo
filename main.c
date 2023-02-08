@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:50:13 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/07 16:32:55 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:03:49 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	initiate_variables_second(void)
 	i = -1;
 	while (++i < data()->num_philos)
 		pthread_join(data()->philo[i].philo_thread, NULL);
-	while (--i > -1)
-		pthread_mutex_destroy(&data()->fork[i].mutex_fork);
 	return ;
 }
 
@@ -45,7 +43,7 @@ static void	initiate_variables_first(void)
 		data()->philo[i].num_eaten = 0;
 		data()->philo[i].total_forks = 0;
 		data()->philo[i].has_eaten = 0;
-		data()->philo[i].last_meal = 0;
+		data()->philo[i].last_meal = data()->start_time;
 		data()->philo[i].sleeping = 0;
 		pthread_create(&data()->philo[i].philo_thread, NULL, \
 		&routine, &data()->philo[i]);
@@ -80,14 +78,28 @@ static int	parse_args(int ac, char **av)
 	return (1);
 }
 
+void	exit_program(void)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_destroy(&data_death()->mutex_death);
+	while (++i < data()->num_philos)
+		pthread_mutex_destroy(&data()->fork[i].mutex_fork);
+	if (data()->fork)
+		free(data()->fork);
+	if (data()->philo)
+		free(data()->philo);
+}
+
 int	main(int ac, char **av)
 {
 	if (ac == 5 || ac == 6)
 	{
 		if (!parse_args(ac, av))
 			return (0);
-		initiate_variables();
-		//test();
+		initiate_variables_first();
+		exit_program();
 	}
 	else
 		printf("arguments must be 4 or 5");
