@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:50:13 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/08 18:03:49 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/15 15:05:55 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ static void	initiate_variables_second(void)
 
 	i = -1;
 	while (++i < data()->num_philos)
+		pthread_create(&data()->philo[i].philo_thread, NULL, \
+		&routine, &data()->philo[i]);
+	while (--i > -1)
 		pthread_join(data()->philo[i].philo_thread, NULL);
 	return ;
 }
@@ -28,6 +31,7 @@ static void	initiate_variables_first(void)
 
 	i = -1;
 	data()->start_time = get_time();
+	pthread_mutex_init(&data()->mutex_print, NULL);
 	pthread_mutex_init(&data_death()->mutex_death, NULL);
 	data()->philo = malloc(sizeof(t_philo) * data()->num_philos);
 	if (!data()->philo)
@@ -43,10 +47,8 @@ static void	initiate_variables_first(void)
 		data()->philo[i].num_eaten = 0;
 		data()->philo[i].total_forks = 0;
 		data()->philo[i].has_eaten = 0;
-		data()->philo[i].last_meal = data()->start_time;
+		data()->philo[i].last_meal = 0;
 		data()->philo[i].sleeping = 0;
-		pthread_create(&data()->philo[i].philo_thread, NULL, \
-		&routine, &data()->philo[i]);
 	}
 	initiate_variables_second();
 }
@@ -83,6 +85,7 @@ void	exit_program(void)
 	int	i;
 
 	i = -1;
+	pthread_mutex_destroy(&data()->mutex_print);
 	pthread_mutex_destroy(&data_death()->mutex_death);
 	while (++i < data()->num_philos)
 		pthread_mutex_destroy(&data()->fork[i].mutex_fork);

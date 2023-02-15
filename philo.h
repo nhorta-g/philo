@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:24:01 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/08 17:48:35 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/15 15:01:41 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data
 	int				time_sleep;
 	int				num_must_eat;
 	long int		start_time;
+	pthread_mutex_t	mutex_print;
 	t_philo			*philo;
 	t_death			*death;
 	t_fork			*fork;
