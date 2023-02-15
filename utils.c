@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:29 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/15 15:49:41 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/15 18:23:51 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ long int	get_time(void)
 void	print_message(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&data()->mutex_print);
-	printf("%ld ms %i %s\n", get_time() - \
+	printf("%ld %i %s\n", get_time() - \
 		data()->start_time, philo->philo_id, str);
 	pthread_mutex_unlock(&data()->mutex_print);
 	return ;

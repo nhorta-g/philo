@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:34:09 by nhorta-g          #+#    #+#             */
-/*   Updated: 2023/02/15 16:10:24 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/15 19:41:24 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,26 @@ static int	philo_sleep(t_philo *philo)
 
 static int	available_forks(t_philo *philo, int index)
 {
-	pthread_mutex_lock(&data()->fork[index].mutex_fork);
-	if (data()->fork[index].exist_fork == 0)
+	while (philo_alive(philo))
 	{
-		data()->fork[index].exist_fork = 1;
-		philo->total_forks++;
-		print_message(philo, "has taken a fork");
+		pthread_mutex_lock(&data()->fork[index].mutex_fork);
+		if (data()->fork[index].exist_fork == 0)
+		{
+			data()->fork[index].exist_fork = 1;
+			philo->total_forks++;
+			print_message(philo, "has taken a fork");
+			pthread_mutex_unlock(&data()->fork[index].mutex_fork);
+			return (1);
+		}
+		if (philo->has_eaten > 0 && data()->fork[index].exist_fork == 1)
+		{
+			data()->fork[index].exist_fork = 0;
+			philo->has_eaten--;
+			pthread_mutex_unlock(&data()->fork[index].mutex_fork);
+			return (0);
+		}
 		pthread_mutex_unlock(&data()->fork[index].mutex_fork);
-		return (1);
 	}
-	if (philo->has_eaten > 0 && data()->fork[index].exist_fork == 1)
-	{
-		data()->fork[index].exist_fork = 0;
-		philo->has_eaten--;
-		pthread_mutex_unlock(&data()->fork[index].mutex_fork);
-		return (0);
-	}
-	pthread_mutex_unlock(&data()->fork[index].mutex_fork);
 	return (1);
 }
 
