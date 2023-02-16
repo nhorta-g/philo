@@ -6,7 +6,7 @@
 /*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:34:09 by nhorta-g          #+#    #+#             */
-/*   Updated: 2023/02/16 14:19:47 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:41:43 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void	*routine(void *t)
 		philo_sleep(philo);
 		if (!check_dead())
 			print_message(philo, "is thinking");
+		if (data()->num_philos % 2)
+			usleep(20);
 	}
 	return (0);
 }
