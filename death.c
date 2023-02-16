@@ -6,7 +6,7 @@
 /*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:04:35 by nhorta-g          #+#    #+#             */
-/*   Updated: 2023/02/16 12:33:25 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:03:35 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int	check_dead(void)
 
 int	philo_alive(t_philo *philos)
 {
-	long int	time_from_last_meal;
+	long int	time_between_meal;
 
 	if (check_dead())
 		return (0);
-	time_from_last_meal = get_time() - philos->last_meal;
-	if (time_from_last_meal >= data()->time_die)
+	time_between_meal = get_time() - philos->last_meal;
+	if (time_between_meal >= data()->time_die)
 	{
 		pthread_mutex_lock(&data_death()->mutex_death);
 		data_death()->is_dead++;

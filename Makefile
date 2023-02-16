@@ -6,15 +6,14 @@
 #    By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 11:31:03 by nhorta-g          #+#    #+#              #
-#    Updated: 2023/02/07 18:41:09 by nhorta-g         ###   ########.fr        #
+#    Updated: 2023/02/16 18:56:35 by nhorta-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= $(SRCS_DIR)/main.c \
 			$(SRCS_DIR)/utils.c \
 			$(SRCS_DIR)/routine.c \
-			$(SRCS_DIR)/death.c \
-			$(SRCS_DIR)/test.c
+			$(SRCS_DIR)/death.c
 SRCS_DIR = ./
 
 OBJS = $(subst $(SRCS_DIR), $(OBJS_DIR), $(SRCS:.c=.o))

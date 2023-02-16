@@ -6,7 +6,7 @@
 /*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:24:01 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/16 13:50:12 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:05:41 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_death
 
 typedef struct s_fork
 {
-	int				exist_fork;		//If available on the table slot is = 1
+	int				on_hand;		//If available on the table slot is = 1
 	pthread_mutex_t	mutex_fork;
 }					t_fork;
 
@@ -39,8 +39,7 @@ typedef struct s_philo
 	int				has_eaten;		//If philo has eaten > 0, iniciated at 0
 	int				left_fork;
 	int				right_fork;
-	long int		last_meal;
-	long int		sleeping;
+	long int		last_meal;		//Time last meal started
 	pthread_t		philo_thread;
 }					t_philo;
 
@@ -71,8 +70,5 @@ void		*routine(void *t);
 /*death*/
 int			check_dead(void);
 int			philo_alive(t_philo *philos);
-
-/*test*/
-void		test(void);
 
 #endif
