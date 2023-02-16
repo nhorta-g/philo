@@ -6,7 +6,7 @@
 /*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:34:09 by nhorta-g          #+#    #+#             */
-/*   Updated: 2023/02/15 19:41:24 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:19:47 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ static int	available_forks(t_philo *philo, int index)
 
 static int	philo_eat(t_philo *philo)
 {
-	long int	eat_time;
-	long int	eating;
+	long int	eat_time_start;
+	long int	eating_time;
 
-	eat_time = get_time();
-	eating = 0;
+	eat_time_start = get_time();
+	eating_time = 0;
 	if (check_dead())
 		return (0);
 	if (philo_alive(philo))
 	{
 		print_message(philo, "is eating");
-		while (eating <= data()->time_eat && philo_alive(philo))
-			eating = get_time() - eat_time;
+		while (eating_time <= data()->time_eat && philo_alive(philo))
+			eating_time = get_time() - eat_time_start;
 		philo->last_meal = get_time();
 		philo->has_eaten = 2;
 		available_forks(philo, philo->right_fork);
@@ -78,11 +78,11 @@ static int	philo_eat(t_philo *philo)
 
 static int	check_forks(t_philo *philo)
 {
-	philo->right_fork = philo->philo_id;
-	philo->left_fork = philo->philo_id + 1;
+	philo->right_fork = philo->philo_id + 1;
+	philo->left_fork = philo->philo_id;
 	if (philo->philo_id == data()->num_philos)
 		philo->left_fork = 1;
-	while (philo_alive(philo))
+	if (philo_alive(philo))
 	{
 		available_forks(philo, philo->right_fork);
 		available_forks(philo, philo->left_fork);
@@ -98,15 +98,17 @@ void	*routine(void *t)
 	t_philo	*philo;
 
 	philo = (t_philo *)t;
+	if (!(philo->philo_id % 2))
+		usleep(10000);
 	philo->last_meal = data()->start_time;
 	while (philo_alive(philo))
 	{
 		check_forks(philo);
 		if (philo->num_eaten == data()->num_must_eat)
-			return (NULL);
+			return (0);
 		philo_sleep(philo);
 		if (!check_dead())
 			print_message(philo, "is thinking");
 	}
-	return (NULL);
+	return (0);
 }

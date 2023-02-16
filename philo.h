@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:24:01 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/15 15:01:41 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/16 13:50:12 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ typedef struct s_death
 
 typedef struct s_fork
 {
-	int				exist_fork;
+	int				exist_fork;		//If available on the table slot is = 1
 	pthread_mutex_t	mutex_fork;
 }					t_fork;
 
 typedef struct s_philo
 {
-	int				philo_id;
-	int				num_eaten;
-	int				total_forks;
-	int				has_eaten;
+	int				philo_id;		//Id for each philo, ranging from 1 to num_philos
+	int				num_eaten;		//number times philo ate already
+	int				total_forks;	//number of forks each philo is grabing
+	int				has_eaten;		//If philo has eaten > 0, iniciated at 0
 	int				left_fork;
 	int				right_fork;
 	long int		last_meal;
@@ -46,12 +46,12 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				num_philos;
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
-	int				num_must_eat;
-	long int		start_time;
+	int				num_philos;		//input from user, total philosophers
+	int				time_die;		//input from user, time to die
+	int				time_eat;		//input from user, time to eat
+	int				time_sleep;		//input from user, time to sleep
+	int				num_must_eat;	//input from user for number of times a philosopher must eat
+	long int		start_time;		//t0, inicial time simulation starts
 	pthread_mutex_t	mutex_print;
 	t_philo			*philo;
 	t_death			*death;
