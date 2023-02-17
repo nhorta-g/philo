@@ -6,7 +6,7 @@
 /*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:24:01 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/16 20:05:41 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:32:16 by nhorta-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_philo
 {
 	int				philo_id;		//Id for each philo, ranging from 1 to num_philos
 	int				num_eaten;		//number times philo ate already
-	int				total_forks;	//number of forks each philo is grabing
+	int				total_forks;	//Number of forks each philo has in hands, from 1 to 2
 	int				has_eaten;		//If philo has eaten > 0, iniciated at 0
 	int				left_fork;
 	int				right_fork;
@@ -68,7 +68,7 @@ int			ft_atoi(const char *str);
 void		*routine(void *t);
 
 /*death*/
-int			check_dead(void);
+int			any_death_already(void);
 int			philo_alive(t_philo *philos);
 
 #endif

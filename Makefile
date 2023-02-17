@@ -6,7 +6,7 @@
 #    By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 11:31:03 by nhorta-g          #+#    #+#              #
-#    Updated: 2023/02/16 18:56:35 by nhorta-g         ###   ########.fr        #
+#    Updated: 2023/02/17 12:52:51 by nhorta-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,7 @@ NAME	= philo
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror -pthread -I includes -g -fsanitize=thread
-
+CFLAGS	= -Wall -Wextra -Werror -pthread -I includes -g -fsanitize=thread #-fsanitize=address
 RM		= rm -rf
 
 all: $(NAME)
