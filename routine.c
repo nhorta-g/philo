@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:34:09 by nhorta-g          #+#    #+#             */
-/*   Updated: 2023/02/17 17:20:12 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:52:06 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,20 @@ static int	available_forks(t_philo *philo, int index)
 
 static int	philo_eat(t_philo *philo)
 {
-	long int	eating_time;
+	long int	eating_duration;
+	long int	start_eat_time;
 
-	eating_time = 0;
+	eating_duration = 0;
+	start_eat_time = get_time();
 	if (any_death_already())
 		return (0);
 	if (philo_alive(philo))
 	{
+		philo->last_meal = start_eat_time;
 		print_message(philo, "is eating");
-		while (eating_time <= data()->time_eat && philo_alive(philo))
-			eating_time = get_time() - philo->last_meal;
-		philo->last_meal = get_time();
+		while (eating_duration <= data()->time_eat && philo_alive(philo))
+			eating_duration = get_time() - start_eat_time;
+
 		philo->has_eaten = 2;
 		available_forks(philo, philo->right_fork);
 		available_forks(philo, philo->left_fork);
