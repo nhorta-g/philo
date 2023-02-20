@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhorta-g <nhorta-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:29 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/17 17:20:09 by nhorta-g         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:03:37 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ long int	get_time(void)
 void	print_message(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&data()->mutex_print);
-	printf("%ld %i %s		%ld\n", get_time() - \
-		data()->start_time, philo->philo_id, str, \
-		get_time() - philo->last_meal);
+	if (!any_death_already())
+		printf("%ld %i %s\n", get_time() - \
+			data()->start_time, philo->philo_id, str);
 	pthread_mutex_unlock(&data()->mutex_print);
 	return ;
 }
