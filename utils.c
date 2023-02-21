@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:29 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/20 16:26:00 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/21 18:21:07 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ long int	get_time(void)
 
 void	print_message(t_philo *philo, char *str)
 {
-		pthread_mutex_lock(&data()->mutex_print);
-		printf("%ld %i %s\n", get_time() - \
-			data()->start_time, philo->philo_id, str);
-		pthread_mutex_unlock(&data()->mutex_print);
+	pthread_mutex_lock(&data()->mutex_print);
+	printf("%ld %i %s\n", get_time() - \
+		data()->start_time, philo->philo_id, str);
+	pthread_mutex_unlock(&data()->mutex_print);
 	return ;
 }
 

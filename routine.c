@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:34:09 by nhorta-g          #+#    #+#             */
-/*   Updated: 2023/02/20 16:52:06 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/21 18:22:14 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ static int	philo_eat(t_philo *philo)
 		return (0);
 	if (philo_alive(philo))
 	{
-		philo->last_meal = start_eat_time;
 		print_message(philo, "is eating");
 		while (eating_duration <= data()->time_eat && philo_alive(philo))
 			eating_duration = get_time() - start_eat_time;
-
+		philo->last_meal = get_time();
 		philo->has_eaten = 2;
 		available_forks(philo, philo->right_fork);
 		available_forks(philo, philo->left_fork);
@@ -79,11 +78,11 @@ static int	philo_eat(t_philo *philo)
 
 static int	check_forks(t_philo *philo)
 {
-	philo->right_fork = philo->philo_id + 1;
-	philo->left_fork = philo->philo_id;
+	philo->right_fork = philo->philo_id;
+	philo->left_fork = philo->philo_id + 1;
 	if (philo->philo_id == data()->num_philos)
 		philo->left_fork = 1;
-	if (philo_alive(philo))
+	while (philo_alive(philo))
 	{
 		available_forks(philo, philo->right_fork);
 		available_forks(philo, philo->left_fork);
