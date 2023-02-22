@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:29 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/21 18:21:07 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/22 00:06:50 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,9 @@ long int	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	print_message(t_philo *philo, char *str)
+long int	time_diff(long int start, long int last_action)
 {
-	pthread_mutex_lock(&data()->mutex_print);
-	printf("%ld %i %s\n", get_time() - \
-		data()->start_time, philo->philo_id, str);
-	pthread_mutex_unlock(&data()->mutex_print);
-	return ;
+	return (last_action - start);
 }
 
 int	ft_atoi(const char *str)

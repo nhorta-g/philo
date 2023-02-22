@@ -6,14 +6,14 @@
 #    By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 11:31:03 by nhorta-g          #+#    #+#              #
-#    Updated: 2023/02/21 18:19:02 by nuno             ###   ########.fr        #
+#    Updated: 2023/02/22 09:21:58 by nuno             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= $(SRCS_DIR)/main.c \
 			$(SRCS_DIR)/utils.c \
 			$(SRCS_DIR)/routine.c \
-			$(SRCS_DIR)/death.c
+			$(SRCS_DIR)/death_print.c
 SRCS_DIR = ./
 
 OBJS = $(subst $(SRCS_DIR), $(OBJS_DIR), $(SRCS:.c=.o))
@@ -24,7 +24,7 @@ NAME	= philo
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror -pthread -I includes -g -fsanitize=address #-fsanitize=thread
+CFLAGS	= -Wall -Wextra -Werror -pthread -I includes -g  -fsanitize=thread #-fsanitize=address
 RM		= rm -rf
 
 all: $(NAME)

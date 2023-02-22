@@ -6,7 +6,7 @@
 /*   By: nuno <nuno@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:50:13 by nuno              #+#    #+#             */
-/*   Updated: 2023/02/20 16:34:06 by nuno             ###   ########.fr       */
+/*   Updated: 2023/02/22 09:08:57 by nuno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	initiate_variables_second(void)
 	int	i;
 
 	i = -1;
+	data()->start_time = get_time();
 	while (++i < data()->num_philos)
 		pthread_create(&data()->philo[i].philo_thread, NULL, \
 		&routine, &data()->philo[i]);
@@ -30,23 +31,20 @@ static void	initiate_variables_first(void)
 	int	i;
 
 	i = -1;
-	data()->start_time = get_time();
-	pthread_mutex_init(&data()->mutex_print, NULL);
-	pthread_mutex_init(&data_death()->mutex_death, NULL);
 	data()->philo = malloc(sizeof(t_philo) * data()->num_philos);
 	if (!data()->philo)
 		return ;
 	data()->fork = malloc(sizeof(t_fork) * data()->num_philos);
 	if (!data()->philo)
 		return ;
+	pthread_mutex_init(&data()->mutex_print, NULL);
+	pthread_mutex_init(&data_death()->mutex_death, NULL);
 	while (++i < data()->num_philos)
 	{
 		pthread_mutex_init(&data()->fork[i].mutex_fork, NULL);
 		data()->philo[i].philo_id = i + 1;
 		data()->philo[i].num_eaten = 0;
-		data()->philo[i].total_forks = 0;
 		data()->philo[i].last_meal = 0;
-		data()->philo[i].has_eaten = 0;
 		data()->fork[i].on_hand = 0;
 	}
 	initiate_variables_second();
